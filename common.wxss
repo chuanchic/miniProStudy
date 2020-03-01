@@ -1,0 +1,4 @@
+/* 整个页面的根标签是 page，类似于 body */
+page {
+  background-color: blue;
+}

@@ -1,0 +1,21 @@
+/* 
+  小程序提供的样式表，用法和 css 基本一致，不一样的地方在：
+  1. wxss 中新增了一个单位 rpx(responsive pixel) 
+    可以根据屏幕宽度自适应，小程序规定屏幕宽度为 750rpx
+    iPhone6 的屏幕宽度为 375px，则 750rpx = 375px = 750物理像素，1rpx = 0.5px = 1物理像素
+  2.通过 @import 导入 公共样式，当前页面才能拥有 公共样式(不重要)
+  3.内联样式
+    框架组件上支持使用 style class 属性来控制组件的样式
+    一般静态样式写到 class 中，动态样式写到 style 中
+    style 中的样式在运行时会进行解析，尽量避免静态样式写到 style 中，以免影响渲染速度
+  4. wxss 提供的选择器没有 css 多，但是基本够用
+  5. wxss 中推荐使用 flex 布局，不推荐其他布局
+*/
+
+@import '/common.wxss';
+
+text {
+  background-color: pink;
+  width: 100rpx;
+  height: 100rpx;
+}

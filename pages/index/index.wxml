@@ -1,0 +1,113 @@
+<!-- view 类似于 div -->
+<view class="container">
+
+  <!-- text 类似于 span -->
+  <!-- selectable 长按选中文本 -->
+  <text selectable>好的</text>
+
+  <!-- icon 类似于 i，用来放字体图标
+       type 指定哪个图片
+       color 指定图片颜色
+       size 指定图片大小 单位 px    
+   -->
+  <icon type="success" color="red" size="30"></icon>
+
+  <!-- 表单相关组件 -->
+  <form>
+    <button size="mini">按钮</button>
+    <!-- label 用来关联其他组件，扩大点击区域 -->
+    <label for="checked">用户名</label>
+    <checkbox id="checked" color="#f80" checked></checkbox>
+    <input style="border: 1px solid #ccc;" placeholder="请输入用户名"></input>
+  </form>
+  
+  <!-- 导航组件 类似于 a 标签 
+       target 为 self 在当前小程序打开，为 miniProgram 在其他小程序打开
+       url 跳转到的页面 ../是上一级 /是当前项目路径
+           ../logs/logs 或 /pages/logs/logs
+       open-type 默认不会跳转 tabBar 配置的页面
+         值为 switchTab 跳转的只能是 tabBar 配置的页面
+         值为 navigate(默认值) 跳转的不能是 tabBar 配置的页面
+  -->
+  <navigator target="self" url="../logs/logs" open-type="switchTab">跳转页面</navigator>
+
+  <!-- 媒体组件 -->
+  <!-- 图片 有默认大小 通过 mode 设置 缩放、裁剪 的模式，常用 widthFix-->
+  <image src="/assets/home.png" mode="scleToFill"></image>
+  <image src="/assets/home.png" mode="aspectFit"></image>
+  <image src="/assets/home.png" mode="aspectFill"></image>
+  <image src="/assets/home.png" mode="widthFix"></image>
+  
+  <!-- 
+      数据绑定 简单绑定 使用 Mustache 语法 {{}} 
+      {{}} 在 vue 中不能用在属性上，在 小程序 里可以 类似于 artTemplate
+      {{}} 中可以出现表达式
+      {{}} 中不能出现方法调用
+  -->
+  <view>{{msg}}</view>
+  <image src="{{imgUrl}}"></image>
+  <view>{{ age > 18 ? msg : msg2}}</view>
+
+  <!-- false 只是字符串，{{false}} 才是 Boolean 类型的 -->
+  <checkbox checked="false"></checkbox>
+  <checkbox checked="{{false}}"></checkbox>
+
+  <!-- 
+       wx:if 类似于 v-if 通过创建或删除元素来控制元素的显示和隐藏 
+       频繁的显示和隐藏用 hidden，否则用 wx:if
+  -->
+  <view wx:if="{{age >= 18}}">成年</view>
+  <view wx:elif="{{age >= 14}}">青少年</view>
+  <view wx:else>少年</view>
+
+  <!-- hidden 通过 css 样式的 display 属性来控制元素的显示和隐藏 -->
+  <view hidden="{{age > 18}}">我是hidden属性</view>
+
+  <!-- 
+       单独的 wx:if 只能控制一个标签的显示和隐藏，如果想控制一组用 block 包裹 
+       优点：不会在页面中做任何的渲染，只接受控制属性
+  -->
+  <block wx:if="age >= 14">
+    <view>我是1</view>
+    <view>我是二</view>
+  </block>
+
+  <!-- 
+       wx:for 遍历一个数组做重复渲染操作 默认索引是 index 默认数据项是 item 
+       wx:key 有两种赋值方式 1.item的某个属性(唯一且不能改变) 2.保留关键字*this(代表item本身)
+              作用是 当数据改变触发渲染层重新渲染的时候，会校正带有key的组件，框架会保证他们被重新排序
+              而不是重新创建，以确保组件保持自身的状态，同时提高列表渲染的效率
+  -->
+  <view wx:for="{{list}}" wx:key="id">{{item.name}}</view>
+  <view wx:for="{{list}}" wx:key="*this">{{item.name}}</view>
+  <!-- 如果想自己指定名称用 wx:for-item wx:for-index -->
+  <view wx:for="{{list}}" wx:for-item="v" wx:for-index="i" wx:key="id">{{v.name}}</view>
+
+  <!-- 
+       注册事件分为两种：
+       1. bind事件名 = 事件函数 bind注册的事件会冒泡
+          例如 bindtap 或者 bind:tap(加不加 : 一样) 点击事件
+       2. catch事件名 = 事件函数 catch注册的事件不会冒泡
+       传参 通过添加 自定义属性
+  -->
+  <view>{{msg}}</view>
+  <input style="border: 1px solid #ccc;" value="{{msg}}" bindinput="changeMsg"></input>
+  <view bindtap="testFn">
+    <button bindtap="testFn" data-id="3">bind注册一个事件</button>
+    <button catchtap="testFn">catch注册一个事件</button>
+  </view>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+</view>
